@@ -12,9 +12,9 @@
 | Thành viên | MSSV | Vai trò |
 |------------|------|---------|
 | Bùi Thành Đạt | 23724811  | Trường nhóm  |
-| `<họ tên>` | `<msv>` | Frontend |
-| `<họ tên>` | `<msv>` | Backend |
-| `<họ tên>` | `<msv>` | Backend |
+| La Thiên Bảo | 23723801 | Thành viên |
+| Lê Ngọc Huy | 23727381 | Thành viên |
+| Bùi Huy Bảo | 23720161 | 	Thành viên |
 
 ---
 
