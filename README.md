@@ -17,7 +17,8 @@
 | Bùi Huy Bảo | 23720161 | 	Thành viên |
 
 ---
-
+## Linl Github 
+https://github.com/JaydenB127/project-proposal
 ---
 
 ##  Tổng quan dự án
