@@ -4,11 +4,23 @@
 
 **Ứng dụng web theo dõi, quản lý và so sánh các thí nghiệm Machine Learning/ Deep Learning một cách trực quan**
 
+
 </div>
+
+## 👥 Nhóm phát triển
+
+| Thành viên | MSSV | Vai trò |
+|------------|------|---------|
+| Bùi Thành Đạt | 23724811  | Trường nhóm  |
+| `<họ tên>` | `<msv>` | Frontend |
+| `<họ tên>` | `<msv>` | Backend |
+| `<họ tên>` | `<msv>` | Backend |
 
 ---
 
-## ⚡ Tổng quan dự án
+---
+
+##  Tổng quan dự án
 
 **Experiment Tracking System** là một ứng dụng web giúp các kỹ sư và nhà nghiên cứu ML/AI **theo dõi, quản lý và so sánh** các thí nghiệm machine learning một cách có hệ thống — thay thế hoàn toàn việc ghi chép thủ công bằng Excel hay ghi chú rời rạc.
 
@@ -71,63 +83,42 @@ So sánh với các công cụ hiện tại như **MLflow** hay **Weights & Bias
 
 ---
 
-## 📁 Cấu trúc thư mục
-
+## Cấu trúc thư mục
+ 
 ```
 experiment-tracking-system/
-├── frontend/                        # React application
+│
+├── frontend/
 │   ├── src/
-│   │   ├── components/              # Các component tái sử dụng
-│   │   │   ├── charts/              # Line chart, Bar chart, Scatter plot
-│   │   │   ├── tables/              # Bảng danh sách runs có filter/sort
-│   │   │   └── ui/                  # Button, Input, Modal, ...
-│   │   ├── pages/                   # Các trang chính
-│   │   │   ├── LoginPage.jsx        # Trang đăng nhập / đăng ký
-│   │   │   ├── DashboardPage.jsx    # Trang tổng quan
-│   │   │   ├── ExperimentsPage.jsx  # Danh sách experiments
-│   │   │   ├── RunsPage.jsx         # Danh sách runs của 1 experiment
-│   │   │   └── CompareRunsPage.jsx  # So sánh nhiều runs
-│   │   ├── services/                # Gọi API
-│   │   ├── store/                   # State management
+│   │   ├── components/       # Chart, RunTable, Navbar, ...
+│   │   ├── pages/            # LoginPage, DashboardPage, RunsPage, ...
+│   │   ├── hooks/            # useExperiments, useRuns
+│   │   ├── api.js            # tất cả hàm gọi API
 │   │   └── App.jsx
-│   ├── package.json
-│   └── ...
+│   └── package.json
 │
-├── backend/                         # FastAPI application
-│   ├── app/
-│   │   ├── api/                     # Route handlers
-│   │   │   ├── auth.py              # Đăng ký, đăng nhập, JWT
-│   │   │   ├── experiments.py       # CRUD experiment
-│   │   │   ├── runs.py              # CRUD run
-│   │   │   ├── metrics.py           # Log & lấy metrics
-│   │   │   └── artifacts.py         # Upload & download artifacts
-│   │   ├── models/                  # SQLAlchemy models
-│   │   │   ├── user.py
-│   │   │   ├── experiment.py
-│   │   │   ├── run.py
-│   │   │   ├── metric.py
-│   │   │   └── artifact.py
-│   │   ├── schemas/                 # Pydantic schemas (request/response)
-│   │   ├── core/                    # Config, security, database
-│   │   │   ├── config.py
-│   │   │   ├── security.py          # JWT helper
-│   │   │   └── database.py          # DB engine & session
-│   │   └── main.py                  # FastAPI app entry point
-│   ├── tests/                       # pytest test files
-│   ├── requirements.txt
-│   └── .env.example
+├── backend/
+│   ├── main.py               # FastAPI app
+│   ├── database.py           # kết nối database
+│   ├── models.py             # User, Experiment, Run, Metric
+│   ├── schemas.py            # request/response schemas
+│   ├── auth.py               # JWT helper
+│   ├── routes/
+│   │   ├── auth.py           # /register, /login
+│   │   ├── experiments.py    # CRUD /experiments
+│   │   ├── runs.py           # CRUD /runs
+│   │   └── metrics.py        # /metrics
+│   └── requirements.txt
 │
-├── docs/                            # Tài liệu & ảnh chụp màn hình
-│   └── images/
-├── .gitignore
-├── docker-compose.yml               # Khởi động toàn bộ hệ thống
 ├── README.md
-└── LICENSE
+└── .gitignore
 ```
+ 
+---
 
 ---
 
-## 🚀 Hướng dẫn cài đặt
+##  Hướng dẫn cài đặt
 
 ### Yêu cầu hệ thống
 
@@ -136,108 +127,66 @@ experiment-tracking-system/
 - **Node.js**: 18+
 - **PostgreSQL**: 14+
 
-### Cách 1 — Docker (khuyến nghị)
-
-```bash
-# 1. Clone repository
-git clone https://github.com/your-org/experiment-tracking-system.git
-cd experiment-tracking-system
-
-# 2. Tạo file cấu hình môi trường
-cp backend/.env.example backend/.env
-# Chỉnh sửa .env nếu cần (mặc định đã chạy được)
-
-# 3. Khởi động toàn bộ hệ thống
-docker compose up -d
-
-# 4. Truy cập ứng dụng
-# Frontend:  http://localhost:3000
-# API docs:  http://localhost:8000/docs
-```
-
-### Cách 2 — Chạy thủ công (Local)
-
-#### Backend
-
+### Backend
+ 
 ```bash
 cd backend
-
-# Tạo môi trường ảo
 python -m venv venv
-source venv/bin/activate          # Linux/macOS
-# hoặc: venv\Scripts\activate     # Windows
-
-# Cài đặt dependencies
+source venv/bin/activate        # Windows: venv\Scripts\activate
 pip install -r requirements.txt
-
-# Cấu hình môi trường
+ 
+# Tạo file .env (xem .env.example)
 cp .env.example .env
-# Chỉnh sửa .env với thông tin database của bạn
-
-# Khởi động server
-uvicorn app.main:app --reload --port 8000
+ 
+uvicorn main:app --reload
+# API chạy tại: http://localhost:8000
+# Swagger docs: http://localhost:8000/docs
 ```
-
-#### Frontend
-
+ 
+### Frontend
+ 
 ```bash
 cd frontend
-
-# Cài đặt dependencies
 npm install
-
-# Khởi động dev server
 npm run dev
-# Truy cập: http://localhost:3000
+# Giao diện chạy tại: http://localhost:3000
 ```
 
----
-
 ## ⚙️ Cấu hình
-
-Tạo file `backend/.env` từ `.env.example` và điền các giá trị:
-
+ 
 ```env
-# =================== DATABASE ===================
 DB_HOST=localhost
 DB_PORT=5432
 DB_USER=postgres
 DB_PASSWORD=your_password
 DB_NAME=experiment_tracker
-
-# =================== SECURITY ===================
-SECRET_KEY=your-secret-key-here   # Dùng: openssl rand -hex 32
-ACCESS_TOKEN_EXPIRE_MINUTES=1440  # 24 giờ
-
-# =================== STORAGE ===================
-ARTIFACT_STORAGE_PATH=./storage/artifacts
-MAX_ARTIFACT_SIZE_MB=100
+SECRET_KEY=your_secret_key
 ```
+ 
+---
+---
+
+## Tính năng
+ 
+### MVP — hoàn thành 12/04/2026
+- Đăng ký / Đăng nhập (JWT)
+- Tạo, sửa, xóa Experiment
+- Tạo Run, log hyperparameters & metrics
+- Xem danh sách Run (filter, sort)
+- Biểu đồ line chart so sánh metrics giữa các Run
+- Biểu đồ bar chart so sánh best metric giữa các Run
+- Phân quyền Viewer / Editor
+ 
+### Beta — hoàn thành 10/05/2026
+- Upload artifact (file model)
+- Mời thành viên qua email
+- Export kết quả CSV
+ 
+---Scatter plot (learning_rate vs accuracy)
 
 ---
 
-## 📊 Tính năng chính
-
-### MVP (v1.0 — 12/04/2026)
-
-- [x] Đăng ký / Đăng nhập bằng email + mật khẩu (JWT)
-- [x] Tạo, sửa, xóa Experiment
-- [x] Tạo Run, log Hyperparameters & Metrics
-- [x] Xem danh sách Run theo Experiment (filter, sort)
-- [x] **Line chart** so sánh accuracy/loss theo epoch giữa nhiều runs
-- [x] **Bar chart** so sánh best metric giữa các runs
-- [x] Phân quyền: Viewer / Editor
-
-### Beta (v2.0 — 10/05/2026)
-
-- [ ] Upload & quản lý Artifact (file model, hình ảnh)
-- [ ] Mời thành viên vào nhóm qua email
-- [ ] Export báo cáo CSV
-- [ ] Scatter plot (learning_rate vs accuracy)
-
----
-
-## 🤝 Đóng góp
+## Đóng góp
 
 Mọi đóng góp đều được hoan nghênh! Để đóng góp:
 
@@ -247,27 +196,6 @@ Mọi đóng góp đều được hoan nghênh! Để đóng góp:
 4. Push lên branch: `git push origin feature/ten-tinh-nang`
 5. Tạo Pull Request
 
----
 
-## 👥 Nhóm phát triển
-
-| Thành viên | MSSV | Vai trò |
-|------------|------|---------|
-| `<họ tên>` | `<msv>` | Frontend |
-| `<họ tên>` | `<msv>` | Frontend |
-| `<họ tên>` | `<msv>` | Backend |
-| `<họ tên>` | `<msv>` | Backend |
-
----
-
-## 📄 Giấy phép
-
-Dự án này sử dụng giấy phép [MIT](LICENSE).
-
----
-
-<div align="center">
-
-Made with ❤️ — Môn Phát triển Ứng dụng
 
 </div>
