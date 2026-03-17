@@ -4,8 +4,6 @@
 
 **Ứng dụng web theo dõi, quản lý và so sánh các thí nghiệm Machine Learning/ Deep Learning một cách trực quan**
 
-[🇻🇳 Tiếng Việt](#) | [🇬🇧 English](#)
-
 </div>
 
 ---
