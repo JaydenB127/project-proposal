@@ -1,8 +1,8 @@
 <div align="center">
 
-# 🧪 Experiment Tracking System
+#  Experiment Tracking System
 
-**Ứng dụng web theo dõi, quản lý và so sánh các thí nghiệm Machine Learning một cách trực quan**
+**Ứng dụng web theo dõi, quản lý và so sánh các thí nghiệm Machine Learning/ Deep Learning một cách trực quan**
 
 [![GitHub Stars](https://img.shields.io/github/stars/your-org/experiment-tracking-system?style=flat-square)](https://github.com/your-org/experiment-tracking-system/stargazers)
 [![GitHub Forks](https://img.shields.io/github/forks/your-org/experiment-tracking-system?style=flat-square)](https://github.com/your-org/experiment-tracking-system/network)
