@@ -1,7 +1,5 @@
 # Project Proposal
 
-> ⚠️ **Lưu ý quan trọng:** Proposal sau khi được thầy xác nhận sẽ làm cơ sở để chấm điểm cuối kỳ. Hãy đọc kỹ và chỉnh sửa nội dung trước khi nộp.
-
 ---
 
 ## THÔNG TIN
