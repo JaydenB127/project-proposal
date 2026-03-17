@@ -7,7 +7,7 @@
 
 </div>
 
-## 👥 Nhóm phát triển
+## Nhóm phát triển
 
 | Thành viên | MSSV | Vai trò |
 |------------|------|---------|
@@ -35,7 +35,7 @@ So sánh với các công cụ hiện tại như **MLflow** hay **Weights & Bias
 
 ---
 
-## 🖥️ Demo giao diện
+##  Demo giao diện
 
 > *(Cập nhật ảnh chụp màn hình sau khi hoàn thành MVP)*
 
@@ -45,7 +45,7 @@ So sánh với các công cụ hiện tại như **MLflow** hay **Weights & Bias
 
 ---
 
-## 🏗️ Kiến trúc hệ thống
+##  Kiến trúc hệ thống
 
 ```
 ┌─────────────────────────────────────────────────────────┐
