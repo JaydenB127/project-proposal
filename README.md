@@ -4,14 +4,6 @@
 
 **Ứng dụng web theo dõi, quản lý và so sánh các thí nghiệm Machine Learning/ Deep Learning một cách trực quan**
 
-[![GitHub Stars](https://img.shields.io/github/stars/your-org/experiment-tracking-system?style=flat-square)](https://github.com/your-org/experiment-tracking-system/stargazers)
-[![GitHub Forks](https://img.shields.io/github/forks/your-org/experiment-tracking-system?style=flat-square)](https://github.com/your-org/experiment-tracking-system/network)
-[![GitHub Issues](https://img.shields.io/github/issues/your-org/experiment-tracking-system?style=flat-square)](https://github.com/your-org/experiment-tracking-system/issues)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
-[![Version](https://img.shields.io/badge/version-v1.0.0-green.svg?style=flat-square)](https://github.com/your-org/experiment-tracking-system)
-[![Python](https://img.shields.io/badge/Python-3.10+-blue?style=flat-square&logo=python)](https://python.org)
-[![React](https://img.shields.io/badge/React-18+-61DAFB?style=flat-square&logo=react)](https://reactjs.org)
-
 [🇻🇳 Tiếng Việt](#) | [🇬🇧 English](#)
 
 </div>
