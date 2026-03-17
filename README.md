@@ -22,7 +22,10 @@
 
 ##  Tổng quan dự án
 
-**Experiment Tracking System** là một ứng dụng web giúp các kỹ sư và nhà nghiên cứu ML/AI **theo dõi, quản lý và so sánh** các thí nghiệm machine learning một cách có hệ thống — thay thế hoàn toàn việc ghi chép thủ công bằng Excel hay ghi chú rời rạc.
+**Experiment Tracking System là một ứng dụng web cho phép người dùng tạo, lưu trữ và so sánh các thí nghiệm machine learning một cách có hệ thống. Thay vì ghi chép kết quả bằng Excel hay ghi chú rời rạc, người dùng có thể log hyperparameters và metrics của từng lần chạy, rồi xem lại qua dashboard với biểu đồ trực quan.
+Lý do chọn đề tài: Trong quá trình học các môn Machine Learning, nhóm nhận thấy khi thử nghiệm nhiều bộ tham số khác nhau (learning rate, batch size, số epochs...), việc nhớ lại "lần chạy nào cho kết quả tốt nhất" rất khó nếu không ghi chép cẩn thận. Excel thì lộn xộn, ghi chú tay thì dễ mất — đây là vấn đề thực tế nhóm đã gặp.
+Điểm khác so với phần mềm hiện có:
+Các công cụ chuyên nghiệp như MLflow hay Weights & Biases rất mạnh nhưng đòi hỏi cấu hình phức tạp, cần hiểu về Docker, server, và thường tích hợp trực tiếp vào code Python. Dự án này hướng đến đối tượng là sinh viên hoặc người mới học ML với cách tiếp cận đơn giản hơn: người dùng tự nhập kết quả qua giao diện web, không cần cài đặt thêm bất cứ thứ gì, chạy được ngay trên localhost.
 
 > Người dùng chỉ cần đăng nhập, tạo experiment, log kết quả từng run, và ngay lập tức thấy được biểu đồ so sánh trực quan giữa các lần thử nghiệm.
 
@@ -196,6 +199,25 @@ Mọi đóng góp đều được hoan nghênh! Để đóng góp:
 4. Push lên branch: `git push origin feature/ten-tinh-nang`
 5. Tạo Pull Request
 
+## Các câu hỏi cho thầy
 
+1. Về phạm vi dự án:
+
+Với thời gian còn lại đến 12/04, nếu nhóm không kịp làm hết các tính năng MVP thì ưu tiên tính năng nào trước?
+Phần upload artifact (file model) có bắt buộc trong MVP không, hay chỉ cần lưu thông tin params và metrics là đủ?
+
+2. Về kỹ thuật:
+
+Hệ thống có cần deploy lên server thật (có domain, public URL) hay chỉ cần demo được trên localhost là đủ?
+Backend và frontend có bắt buộc tách riêng (REST API) không, hay có thể dùng fullstack như Next.js cho đơn giản hơn?
+
+3. Về chấm điểm:
+
+Tiêu chí chấm phần visualization/dashboard được đánh giá như thế nào — chú trọng số lượng chart hay tính hữu ích của dữ liệu hiển thị?
+Phần kiểm thử (testing) cần ở mức nào — unit test đầy đủ hay chỉ cần test thủ công và có ghi lại kết quả?
+
+4. Về báo cáo Beta:
+
+Phần "viết báo cáo" ở Beta Version cần theo mẫu cụ thể nào không, hay tự do trình bày?
 
 </div>
