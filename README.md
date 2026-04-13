@@ -45,7 +45,7 @@ So sánh với các công cụ hiện tại như **MLflow** hay **Weights & Bias
 
 | Dashboard | So sánh Runs | Quản lý Experiment |
 |:---------:|:------------:|:-----------------:|
-| ![dashboard](docs/images/dashboard.png) | ![compare](docs/images/compare.png) | ![experiments](docs/images/experiments.png) |
+| ![dashboard]) | ![compare](docs/images/compare.png) | ![experiments](docs/images/experiments.png) |
 
 ---
 
