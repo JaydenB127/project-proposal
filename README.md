@@ -4,6 +4,25 @@
 
 ETS (Experiment Tracking System) là một nền tảng web hỗ trợ quản lý và theo dõi quá trình huấn luyện mô hình AI trong lĩnh vực tài chính định lượng. Hệ thống cung cấp pipeline hoàn chỉnh cho việc quản lý dữ liệu, huấn luyện mô hình học máy, đánh giá bằng walk-forward validation, theo dõi kết quả thí nghiệm và trực quan hóa hiệu suất mô hình thông qua dashboard tương tác.
 
+##  Tổng quan dự án
+
+**Experiment Tracking System là một ứng dụng web cho phép người dùng tạo, lưu trữ và so sánh các thí nghiệm machine learning một cách có hệ thống. Thay vì ghi chép kết quả bằng Excel hay ghi chú rời rạc, người dùng có thể log hyperparameters và metrics của từng lần chạy, rồi xem lại qua dashboard với biểu đồ trực quan.
+Lý do chọn đề tài: Trong quá trình học các môn Machine Learning, nhóm nhận thấy khi thử nghiệm nhiều bộ tham số khác nhau (learning rate, batch size, số epochs...), việc nhớ lại "lần chạy nào cho kết quả tốt nhất" rất khó nếu không ghi chép cẩn thận. Excel thì lộn xộn, ghi chú tay thì dễ mất — đây là vấn đề thực tế nhóm đã gặp.
+Điểm khác so với phần mềm hiện có:
+Các công cụ chuyên nghiệp như MLflow hay Weights & Biases rất mạnh nhưng đòi hỏi cấu hình phức tạp, cần hiểu về Docker, server, và thường tích hợp trực tiếp vào code Python. Dự án này hướng đến đối tượng là sinh viên hoặc người mới học ML với cách tiếp cận đơn giản hơn: người dùng tự nhập kết quả qua giao diện web, không cần cài đặt thêm bất cứ thứ gì, chạy được ngay trên localhost.
+
+> Người dùng chỉ cần đăng nhập, tạo experiment, log kết quả từng run, và ngay lập tức thấy được biểu đồ so sánh trực quan giữa các lần thử nghiệm.
+
+So sánh với các công cụ hiện tại như **MLflow** hay **Weights & Biases**, chúng tôi tập trung vào:
+
+1. **Giao diện đơn giản, không cần cấu hình phức tạp** — chạy được ngay trên máy cá nhân (localhost)
+2. **Dashboard trực quan** — biểu đồ line chart, bar chart so sánh metrics giữa các run
+3. **Cộng tác nhóm** — phân quyền Viewer / Editor / Admin, chia sẻ kết quả trong team
+4. **Phù hợp sinh viên** — không yêu cầu kiến thức hạ tầng cloud hay DevOps
+
+---
+
+
 ---
 
 # ✨ Tính Năng Chính
@@ -323,19 +342,39 @@ python test_deletion_e2e.py
 
 ---
 
-# 🤝 Đóng Góp
+## Đóng góp
 
-Mọi đóng góp đều được chào đón.
+Mọi đóng góp đều được hoan nghênh! Để đóng góp:
 
-Bạn có thể:
-- cải thiện kiến trúc hệ thống
-- thêm forecasting models
-- tối ưu pipeline
-- nâng cấp visualization
+1. Fork repository này
+2. Tạo branch mới: `git checkout -b feature/ten-tinh-nang`
+3. Commit thay đổi: `git commit -m 'feat: thêm tính năng X'`
+4. Push lên branch: `git push origin feature/ten-tinh-nang`
+5. Tạo Pull Request
 
-hãy tạo issue hoặc pull request.
+## Các câu hỏi cho thầy
 
----
+1. Về phạm vi dự án:
+
+Với thời gian còn lại đến 12/04, nếu nhóm không kịp làm hết các tính năng MVP thì ưu tiên tính năng nào trước?
+Phần upload artifact (file model) có bắt buộc trong MVP không, hay chỉ cần lưu thông tin params và metrics là đủ?
+
+2. Về kỹ thuật:
+
+Hệ thống có cần deploy lên server thật (có domain, public URL) hay chỉ cần demo được trên localhost là đủ?
+Backend và frontend có bắt buộc tách riêng (REST API) không, hay có thể dùng fullstack như Next.js cho đơn giản hơn?
+
+3. Về chấm điểm:
+
+Tiêu chí chấm phần visualization/dashboard được đánh giá như thế nào — chú trọng số lượng chart hay tính hữu ích của dữ liệu hiển thị?
+Phần kiểm thử (testing) cần ở mức nào — unit test đầy đủ hay chỉ cần test thủ công và có ghi lại kết quả?
+
+4. Về báo cáo Beta:
+
+Phần "viết báo cáo" ở Beta Version cần theo mẫu cụ thể nào không, hay tự do trình bày?
+
+</div>
+
 
 # 📄 License
 
