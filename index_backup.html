@@ -728,168 +728,6 @@
             return icons[name] || null;
         }
 
-
-        // ============================================================
-        // MOCK DATA - No backend needed, works on GitHub Pages
-        // ============================================================
-        const MOCK_USERS = [
-            { username: "demo", password: "demo123", token: "mock-token-demo" },
-            { username: "admin", password: "admin", token: "mock-token-admin" }
-        ];
-
-        const MOCK_DATASETS = [
-            { id: "ds-001", name: "vietnam_stock_2023.csv", dataset_hash: "a3f8c21d9e4b", n_rows: 12540, n_columns: 15 },
-            { id: "ds-002", name: "crypto_btc_hourly.csv", dataset_hash: "b7d2e56f1a8c", n_rows: 8760, n_columns: 10 },
-            { id: "ds-003", name: "sp500_daily_features.csv", dataset_hash: "c9e4a12b3f6d", n_rows: 5230, n_columns: 22 }
-        ];
-
-        const MOCK_EXPERIMENTS = [
-            { id: "exp-001", name: "LSTM Forecasting v1", description: "First LSTM experiment on VN stock data", dataset_id: "ds-001", created_at: "2026-05-10T09:00:00" },
-            { id: "exp-002", name: "XGBoost Baseline", description: "XGBoost with manual features", dataset_id: "ds-002", created_at: "2026-05-12T14:30:00" },
-            { id: "exp-003", name: "Transformer TimeSeries", description: "Attention-based model for BTC prediction", dataset_id: "ds-003", created_at: "2026-05-15T10:15:00" }
-        ];
-
-        const generateMetrics = (runId, seed) => {
-            const metrics = [];
-            const ts = new Date("2026-05-20T08:00:00").getTime();
-            for (let step = 1; step <= 10; step++) {
-                const noise = (Math.sin(seed * step) * 0.03);
-                metrics.push({ id: `m-${runId}-acc-${step}`, key: "accuracy", value: Math.min(0.99, 0.70 + step * 0.025 + noise), step, timestamp: new Date(ts + step * 60000).toISOString() });
-                metrics.push({ id: `m-${runId}-loss-${step}`, key: "val_loss", value: Math.max(0.05, 0.8 - step * 0.07 + noise * 0.5), step, timestamp: new Date(ts + step * 60000).toISOString() });
-                metrics.push({ id: `m-${runId}-f1-${step}`, key: "f1_score", value: Math.min(0.98, 0.65 + step * 0.03 + noise * 0.5), step, timestamp: new Date(ts + step * 60000).toISOString() });
-            }
-            return metrics;
-        };
-
-        const MOCK_RUNS = {
-            "exp-001": [
-                { id: "run-001a", run_number: 1, status: "completed", created_at: "2026-05-20T08:00:00", experiment_id: "exp-001" },
-                { id: "run-001b", run_number: 2, status: "completed", created_at: "2026-05-20T10:30:00", experiment_id: "exp-001" },
-                { id: "run-001c", run_number: 3, status: "failed", created_at: "2026-05-21T09:00:00", experiment_id: "exp-001" },
-                { id: "run-001d", run_number: 4, status: "completed", created_at: "2026-05-22T14:00:00", experiment_id: "exp-001" }
-            ],
-            "exp-002": [
-                { id: "run-002a", run_number: 1, status: "completed", created_at: "2026-05-18T11:00:00", experiment_id: "exp-002" },
-                { id: "run-002b", run_number: 2, status: "running", created_at: "2026-05-23T09:00:00", experiment_id: "exp-002" }
-            ],
-            "exp-003": [
-                { id: "run-003a", run_number: 1, status: "completed", created_at: "2026-05-19T15:00:00", experiment_id: "exp-003" }
-            ]
-        };
-
-        const MOCK_PARAMS = {
-            "run-001a": [{ key: "learning_rate", value: "0.001" }, { key: "batch_size", value: "32" }, { key: "epochs", value: "50" }, { key: "hidden_units", value: "128" }, { key: "dropout", value: "0.2" }],
-            "run-001b": [{ key: "learning_rate", value: "0.005" }, { key: "batch_size", value: "64" }, { key: "epochs", value: "50" }, { key: "hidden_units", value: "256" }, { key: "dropout", value: "0.3" }],
-            "run-001c": [{ key: "learning_rate", value: "0.1" }, { key: "batch_size", value: "128" }, { key: "epochs", value: "10" }, { key: "hidden_units", value: "512" }, { key: "dropout", value: "0.5" }],
-            "run-001d": [{ key: "learning_rate", value: "0.002" }, { key: "batch_size", value: "32" }, { key: "epochs", value: "100" }, { key: "hidden_units", value: "128" }, { key: "dropout", value: "0.1" }],
-            "run-002a": [{ key: "n_estimators", value: "200" }, { key: "max_depth", value: "6" }, { key: "learning_rate", value: "0.05" }, { key: "subsample", value: "0.8" }],
-            "run-002b": [{ key: "n_estimators", value: "500" }, { key: "max_depth", value: "8" }, { key: "learning_rate", value: "0.01" }, { key: "subsample", value: "0.9" }],
-            "run-003a": [{ key: "d_model", value: "256" }, { key: "n_heads", value: "8" }, { key: "n_layers", value: "6" }, { key: "dropout", value: "0.1" }, { key: "learning_rate", value: "0.0001" }]
-        };
-
-        const MOCK_STEPS = {
-            "run-001a": [
-                { id: "s1", name: "data_preprocessing", status: "completed", duration_seconds: 12 },
-                { id: "s2", name: "feature_engineering", status: "completed", duration_seconds: 34 },
-                { id: "s3", name: "model_training", status: "completed", duration_seconds: 245 },
-                { id: "s4", name: "evaluation", status: "completed", duration_seconds: 18 },
-                { id: "s5", name: "reporting", status: "completed", duration_seconds: 5 }
-            ],
-            "run-001b": [
-                { id: "s1", name: "data_preprocessing", status: "completed", duration_seconds: 11 },
-                { id: "s2", name: "feature_engineering", status: "completed", duration_seconds: 30 },
-                { id: "s3", name: "model_training", status: "completed", duration_seconds: 310 },
-                { id: "s4", name: "evaluation", status: "completed", duration_seconds: 20 },
-                { id: "s5", name: "reporting", status: "completed", duration_seconds: 4 }
-            ],
-            "run-001c": [
-                { id: "s1", name: "data_preprocessing", status: "completed", duration_seconds: 10 },
-                { id: "s2", name: "feature_engineering", status: "completed", duration_seconds: 28 },
-                { id: "s3", name: "model_training", status: "failed", duration_seconds: 15 },
-                { id: "s4", name: "evaluation", status: "pending", duration_seconds: 0 },
-                { id: "s5", name: "reporting", status: "pending", duration_seconds: 0 }
-            ],
-            "run-001d": [
-                { id: "s1", name: "data_preprocessing", status: "completed", duration_seconds: 13 },
-                { id: "s2", name: "feature_engineering", status: "completed", duration_seconds: 35 },
-                { id: "s3", name: "model_training", status: "completed", duration_seconds: 420 },
-                { id: "s4", name: "evaluation", status: "completed", duration_seconds: 22 },
-                { id: "s5", name: "reporting", status: "completed", duration_seconds: 6 }
-            ],
-            "run-002a": [
-                { id: "s1", name: "data_preprocessing", status: "completed", duration_seconds: 8 },
-                { id: "s2", name: "model_training", status: "completed", duration_seconds: 90 },
-                { id: "s3", name: "evaluation", status: "completed", duration_seconds: 10 }
-            ],
-            "run-002b": [
-                { id: "s1", name: "data_preprocessing", status: "completed", duration_seconds: 9 },
-                { id: "s2", name: "model_training", status: "running", duration_seconds: 0 },
-                { id: "s3", name: "evaluation", status: "pending", duration_seconds: 0 }
-            ],
-            "run-003a": [
-                { id: "s1", name: "data_preprocessing", status: "completed", duration_seconds: 15 },
-                { id: "s2", name: "tokenization", status: "completed", duration_seconds: 22 },
-                { id: "s3", name: "model_training", status: "completed", duration_seconds: 680 },
-                { id: "s4", name: "evaluation", status: "completed", duration_seconds: 30 },
-                { id: "s5", name: "reporting", status: "completed", duration_seconds: 8 }
-            ]
-        };
-
-        // Mock API functions replacing all fetch() calls
-        const mockApi = {
-            login: (username, password) => {
-                const user = MOCK_USERS.find(u => u.username === username && u.password === password);
-                if (!user) throw new Error("Invalid username or password");
-                return { token: user.token, username: user.username };
-            },
-            register: (username, password) => {
-                if (MOCK_USERS.find(u => u.username === username)) throw new Error("Username already exists");
-                const newUser = { username, password, token: `mock-token-${username}` };
-                MOCK_USERS.push(newUser);
-                return { success: true };
-            },
-            getDatasets: () => [...MOCK_DATASETS],
-            getExperiments: () => [...MOCK_EXPERIMENTS],
-            getRuns: (expId) => MOCK_RUNS[expId] || [],
-            getRunDetails: (runId) => {
-                for (const runs of Object.values(MOCK_RUNS)) {
-                    const run = runs.find(r => r.id === runId);
-                    if (run) return run;
-                }
-                return null;
-            },
-            getRunMetrics: (runId) => generateMetrics(runId, MOCK_USERS.length + runId.charCodeAt(4)),
-            getRunParams: (runId) => MOCK_PARAMS[runId] || [],
-            getRunSteps: (runId) => MOCK_STEPS[runId] || [],
-            getRunArtifacts: (runId) => [],
-            createExperiment: (name, datasetId) => {
-                const newExp = { id: `exp-${Date.now()}`, name, dataset_id: datasetId, description: "", created_at: new Date().toISOString() };
-                MOCK_EXPERIMENTS.push(newExp);
-                MOCK_RUNS[newExp.id] = [];
-                return newExp;
-            },
-            deleteDataset: (id) => { const i = MOCK_DATASETS.findIndex(d => d.id === id); if (i >= 0) MOCK_DATASETS.splice(i, 1); },
-            deleteRun: (runId) => {
-                for (const expId of Object.keys(MOCK_RUNS)) {
-                    const i = MOCK_RUNS[expId].findIndex(r => r.id === runId);
-                    if (i >= 0) { MOCK_RUNS[expId].splice(i, 1); return; }
-                }
-            },
-            triggerRun: (expId, config) => {
-                const runs = MOCK_RUNS[expId] || [];
-                const newRun = { id: `run-${Date.now()}`, run_number: runs.length + 1, status: "completed", created_at: new Date().toISOString(), experiment_id: expId };
-                runs.push(newRun);
-                MOCK_RUNS[expId] = runs;
-                MOCK_PARAMS[newRun.id] = Object.entries(config || {}).map(([key, value]) => ({ key, value: String(value) }));
-                return { run_id: newRun.id };
-            },
-            updateExperiment: (expId, name, description) => {
-                const exp = MOCK_EXPERIMENTS.find(e => e.id === expId);
-                if (exp) { exp.name = name; exp.description = description; }
-            }
-        };
-
-
         // Login & Register Form Component
         function AuthView({ onLoginSuccess }) {
             const [isRegister, setIsRegister] = useState(false);
@@ -903,13 +741,28 @@
                 e.preventDefault();
                 setError("");
                 setLoading(true);
+
                 try {
                     if (isRegister) {
-                        mockApi.register(username, password);
+                        const res = await fetch("/api/auth/register", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ username, password, email: email || null })
+                        });
+                        const data = await res.json();
+                        if (!res.ok) throw new Error(data.detail || "Registration failed");
+                        
                         setIsRegister(false);
                         setError("Account created successfully! Please sign in.");
                     } else {
-                        const data = mockApi.login(username, password);
+                        const res = await fetch("/api/auth/login", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ username, password })
+                        });
+                        const data = await res.json();
+                        if (!res.ok) throw new Error(data.detail || "Authentication failed");
+
                         localStorage.setItem("ets_token", data.token);
                         localStorage.setItem("ets_username", data.username);
                         onLoginSuccess(data.token, data.username);
@@ -946,28 +799,39 @@
                             </div>
                         )}
 
-                        {!error && (
-                            <div style={{padding: '8px 12px', background: '#DEEBFF', color: 'var(--text-link)', borderRadius: '4px', fontSize: '12px', marginBottom: '12px'}}>
-                                Demo: <b>demo</b> / <b>demo123</b>
-                            </div>
-                        )}
-
                         <form onSubmit={handleSubmit}>
                             <div className="form-group">
                                 <label className="form-label">Username</label>
-                                <input className="form-input" type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
+                                <input 
+                                    className="form-input" 
+                                    type="text" 
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                    required 
+                                />
                             </div>
 
                             {isRegister && (
                                 <div className="form-group">
                                     <label className="form-label">Email Address (Optional)</label>
-                                    <input className="form-input" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                                    <input 
+                                        className="form-input" 
+                                        type="email" 
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                    />
                                 </div>
                             )}
 
                             <div className="form-group">
                                 <label className="form-label">Password</label>
-                                <input className="form-input" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                                <input 
+                                    className="form-input" 
+                                    type="password" 
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required 
+                                />
                             </div>
 
                             <button type="submit" className="btn btn-primary" style={{ width: '100%', padding: '10px', marginTop: '8px' }} disabled={loading}>
@@ -979,7 +843,17 @@
                             <span style={{ color: 'var(--text-secondary)' }}>
                                 {isRegister ? "Already have an account?" : "New to ETS Tracker?"}
                             </span>
-                            <button onClick={() => { setIsRegister(!isRegister); setError(""); }} style={{ background: 'none', border: 'none', color: 'var(--text-link)', marginLeft: '6px', cursor: 'pointer', fontWeight: '600' }}>
+                            <button 
+                                onClick={() => { setIsRegister(!isRegister); setError(""); }}
+                                style={{
+                                    background: 'none',
+                                    border: 'none',
+                                    color: 'var(--text-link)',
+                                    marginLeft: '6px',
+                                    cursor: 'pointer',
+                                    fontWeight: '600'
+                                }}
+                            >
                                 {isRegister ? "Sign In" : "Register"}
                             </button>
                         </div>
@@ -1040,21 +914,23 @@
                 "Authorization": `Bearer ${token}`
             });
 
-            const getHeaders = () => ({ "Content-Type": "application/json", "Authorization": `Bearer ${token}` });
-
+            // Handle Login success
             const handleLogin = (tok, user) => {
                 setToken(tok);
                 setUsername(user);
                 setTimeout(() => window.safeCreateIcons?.(), 200);
             };
 
+            // Logout
             const handleLogout = () => {
                 localStorage.removeItem("ets_token");
                 localStorage.removeItem("ets_username");
                 setToken(null);
                 setUsername(null);
+                if (ws.current) ws.current.close();
             };
 
+            // Fetch Datasets & Experiments on auth
             useEffect(() => {
                 if (token) {
                     fetchDatasets();
@@ -1063,6 +939,7 @@
                 }
             }, [token]);
 
+            // Fetch Runs when an experiment is selected
             useEffect(() => {
                 if (selectedExpId && token) {
                     fetchRuns(selectedExpId);
@@ -1072,36 +949,85 @@
                 }
             }, [selectedExpId]);
 
+            // Setup WebSocket when a Run is selected
             useEffect(() => {
                 if (selectedRunId && token) {
                     fetchRunData(selectedRunId);
+                    
+                    if (ws.current) ws.current.close();
+
+                    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+                    const wsUrl = `${protocol}//${window.location.host}/api/runs/${selectedRunId}/stream`;
+                    ws.current = new WebSocket(wsUrl);
+                    
+                    ws.current.onopen = () => {
+                        console.log("WS Connected for Run", selectedRunId);
+                    };
+
+                    ws.current.onmessage = (event) => {
+                        const msg = JSON.parse(event.data);
+                        if (msg.name === "metric.logged") {
+                            setRunMetrics(prev => [...prev, msg.data]);
+                        } else if (msg.name === "step.completed" || msg.name === "step.failed") {
+                            fetchRunSteps(selectedRunId);
+                        } else if (msg.name === "run.completed" || msg.name === "run.failed") {
+                            fetchRunDetails(selectedRunId);
+                            fetchRunArtifacts(selectedRunId);
+                        }
+                    };
+
+                    return () => {
+                        if (ws.current) ws.current.close();
+                    };
                 }
             }, [selectedRunId]);
 
+            // Fetch comparison data when comparison is active
             useEffect(() => {
                 if (isComparing && compareRunIds.length > 0 && token) {
                     const fetchComparisonData = async () => {
                         try {
-                            const data = compareRunIds.map(runId => ({
-                                run: mockApi.getRunDetails(runId),
-                                metrics: mockApi.getRunMetrics(runId),
-                                parameters: mockApi.getRunParams(runId)
+                            const data = await Promise.all(compareRunIds.map(async (runId) => {
+                                const [detRes, metRes, parRes] = await Promise.all([
+                                    fetch(`/api/runs/${runId}`, { headers: getHeaders() }),
+                                    fetch(`/api/runs/${runId}/metrics`, { headers: getHeaders() }),
+                                    fetch(`/api/runs/${runId}/parameters`, { headers: getHeaders() })
+                                ]);
+                                return {
+                                    run: await detRes.json(),
+                                    metrics: await metRes.json(),
+                                    parameters: await parRes.json()
+                                };
                             }));
                             setCompareData(data);
+                            
+                            // Find unique metric keys
                             const allKeys = new Set();
-                            data.forEach(d => { if (Array.isArray(d.metrics)) d.metrics.forEach(m => allKeys.add(m.key)); });
+                            data.forEach(d => {
+                                if (Array.isArray(d.metrics)) {
+                                    d.metrics.forEach(m => allKeys.add(m.key));
+                                }
+                            });
                             const keysArr = Array.from(allKeys);
                             if (keysArr.length > 0) {
                                 setCompareMetricKey(keysArr[0]);
                                 setCompareScatterX(keysArr[0]);
                                 setCompareScatterY(keysArr.length > 1 ? keysArr[1] : keysArr[0]);
+                            } else {
+                                setCompareMetricKey("");
+                                setCompareScatterX("");
+                                setCompareScatterY("");
                             }
-                        } catch (err) { console.error("Compare error:", err); }
+                        } catch (err) {
+                            console.error("Failed to fetch comparison data:", err);
+                            alert("Error loading comparison data: " + err.message);
+                        }
                     };
                     fetchComparisonData();
                 }
             }, [isComparing, compareRunIds]);
 
+            // Render Plotly comparison chart
             useEffect(() => {
                 if (isComparing && compareData.length > 0 && compareMetricKey) {
                     const plotComparison = () => {
@@ -1233,42 +1159,114 @@
                 setTimeout(() => window.safeCreateIcons?.(), 200);
             }, [view, selectedRunId, runTab, isComparing]);
 
+            const fetchDatasets = async () => {
+                const res = await fetch("/api/datasets", { headers: getHeaders() });
+                if (res.status === 401) return handleLogout();
+                setDatasets(await res.json());
+            };
 
-            const fetchDatasets = () => setDatasets(mockApi.getDatasets());
-            const fetchExperiments = () => setExperiments(mockApi.getExperiments());
-            const fetchRuns = (expId) => setExpRuns(mockApi.getRuns(expId));
-            const fetchRunDetails = (runId) => setRunDetails(mockApi.getRunDetails(runId));
-            const fetchRunSteps = (runId) => setRunSteps(mockApi.getRunSteps(runId));
-            const fetchRunArtifacts = (runId) => setRunArtifacts(mockApi.getRunArtifacts(runId));
+            const fetchExperiments = async () => {
+                const res = await fetch("/api/experiments", { headers: getHeaders() });
+                if (res.status === 401) return handleLogout();
+                setExperiments(await res.json());
+            };
 
-            const fetchRunData = (runId) => {
-                setRunDetails(mockApi.getRunDetails(runId));
-                setRunMetrics(mockApi.getRunMetrics(runId));
-                setRunParams(mockApi.getRunParams(runId));
-                setRunSteps(mockApi.getRunSteps(runId));
-                setRunArtifacts(mockApi.getRunArtifacts(runId));
+            const fetchRuns = async (expId) => {
+                const res = await fetch(`/api/runs/experiments/${expId}`, { headers: getHeaders() });
+                setExpRuns(await res.json());
+            };
+
+            const fetchRunDetails = async (runId) => {
+                const res = await fetch(`/api/runs/${runId}`, { headers: getHeaders() });
+                setRunDetails(await res.json());
+            };
+
+            const fetchRunSteps = async (runId) => {
+                const res = await fetch(`/api/runs/${runId}/steps`, { headers: getHeaders() });
+                setRunSteps(await res.json());
+            };
+
+            const fetchRunArtifacts = async (runId) => {
+                const res = await fetch(`/api/runs/${runId}/artifacts`, { headers: getHeaders() });
+                setRunArtifacts(await res.json());
+            };
+
+            const fetchRunData = async (runId) => {
+                const [detRes, metRes, parRes, stepRes, artRes] = await Promise.all([
+                    fetch(`/api/runs/${runId}`, { headers: getHeaders() }),
+                    fetch(`/api/runs/${runId}/metrics`, { headers: getHeaders() }),
+                    fetch(`/api/runs/${runId}/parameters`, { headers: getHeaders() }),
+                    fetch(`/api/runs/${runId}/steps`, { headers: getHeaders() }),
+                    fetch(`/api/runs/${runId}/artifacts`, { headers: getHeaders() })
+                ]);
+                
+                setRunDetails(await detRes.json());
+                setRunMetrics(await metRes.json());
+                setRunParams(await parRes.json());
+                setRunSteps(await stepRes.json());
+                setRunArtifacts(await artRes.json());
                 setRunTab("overview");
             };
 
-            const deleteRun = (runId) => {
-                if (!confirm("Delete this run? This cannot be undone!")) return;
-                mockApi.deleteRun(runId);
-                if (selectedRunId === runId) { setSelectedRunId(null); setRunDetails(null); }
-                setCompareRunIds(prev => prev.filter(id => id !== runId));
-                if (selectedExpId) fetchRuns(selectedExpId);
+            const deleteRun = async (runId) => {
+                if (!confirm("Are you sure you want to delete this run and all its files from disk? This cannot be undone!")) return;
+                try {
+                    const res = await fetch(`/api/runs/${runId}`, {
+                        method: "DELETE",
+                        headers: getHeaders()
+                    });
+                    const data = await res.json();
+                    if (!res.ok) throw new Error(data.detail || "Failed to delete run");
+                    alert(data.message || "Run deleted successfully");
+                    
+                    if (selectedRunId === runId) {
+                        setSelectedRunId(null);
+                        setRunDetails(null);
+                    }
+                    setCompareRunIds(prev => prev.filter(id => id !== runId));
+                    if (selectedExpId) {
+                        fetchRuns(selectedExpId);
+                    }
+                } catch (err) {
+                    alert(err.message);
+                }
             };
-
-            const handleUpdateExp = (e) => {
+            
+            const handleUpdateExp = async (e) => {
                 e.preventDefault();
-                mockApi.updateExperiment(selectedExpId, editExpName, editExpDesc);
-                setIsEditingExp(false);
-                fetchExperiments();
+                try {
+                    const res = await fetch(`/api/experiments/${selectedExpId}`, {
+                        method: "PUT",
+                        headers: getHeaders(),
+                        body: JSON.stringify({ name: editExpName, description: editExpDesc })
+                    });
+                    if (res.ok) {
+                        setIsEditingExp(false);
+                        fetchExperiments();
+                    } else {
+                        const data = await res.json();
+                        alert(data.detail || "Update failed");
+                    }
+                } catch (err) {
+                    alert(err.message);
+                }
             };
 
-            const deleteDataset = (datasetId) => {
-                if (!confirm("Delete this dataset?")) return;
-                mockApi.deleteDataset(datasetId);
-                fetchDatasets();
+            const deleteDataset = async (datasetId) => {
+                if (!confirm("Are you sure you want to delete this dataset? This cannot be undone!")) return;
+                try {
+                    const res = await fetch(`/api/datasets/${datasetId}`, {
+                        method: "DELETE",
+                        headers: getHeaders()
+                    });
+                    const data = await res.json();
+                    if (!res.ok) throw new Error(data.detail || "Failed to delete dataset");
+                    alert(data.message || "Dataset deleted successfully");
+                    
+                    fetchDatasets();
+                } catch (err) {
+                    alert(err.message);
+                }
             };
 
             const plotMetrics = (metrics) => {
@@ -1300,19 +1298,32 @@
                 });
             };
 
-            const handleCreateExp = (e) => {
+            const handleCreateExp = async (e) => {
                 e.preventDefault();
                 const name = e.target.name.value;
                 const datasetId = e.target.datasetId.value;
-                if (!name || !datasetId) return;
-                mockApi.createExperiment(name, datasetId);
+                if(!name || !datasetId) return;
+
+                await fetch("/api/experiments/", {
+                    method: "POST",
+                    headers: getHeaders(),
+                    body: JSON.stringify({name, dataset_id: datasetId, pipeline_type: "finance_forecasting"})
+                });
                 fetchExperiments();
                 setView("experiments");
             };
 
-            const triggerRun = () => {
-                const config_override = { learning_rate: parseFloat(triggerLR), max_depth: parseInt(triggerMaxDepth, 10) };
-                const data = mockApi.triggerRun(selectedExpId, config_override);
+            const triggerRun = async () => {
+                const config_override = {
+                    learning_rate: parseFloat(triggerLR),
+                    max_depth: parseInt(triggerMaxDepth, 10)
+                };
+                const res = await fetch(`/api/experiments/${selectedExpId}/run`, { 
+                    method: "POST", 
+                    headers: getHeaders(),
+                    body: JSON.stringify({ config_override })
+                });
+                const data = await res.json();
                 fetchRuns(selectedExpId);
                 setSelectedRunId(data.run_id);
             };
