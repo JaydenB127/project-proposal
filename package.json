@@ -1,0 +1,12 @@
+{
+  "name": "project-proposal",
+  "version": "1.0.0",
+  "homepage": "https://JaydenB127.github.io/project-proposal",
+  "scripts": {
+    "predeploy": "echo deploying...",
+    "deploy": "gh-pages -d ."
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
+  }
+}
