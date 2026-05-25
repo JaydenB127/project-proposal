@@ -1040,8 +1040,6 @@
                 "Authorization": `Bearer ${token}`
             });
 
-            const getHeaders = () => ({ "Content-Type": "application/json", "Authorization": `Bearer ${token}` });
-
             const handleLogin = (tok, user) => {
                 setToken(tok);
                 setUsername(user);
