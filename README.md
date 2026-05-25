@@ -1,93 +1,348 @@
-# ETS: Finance Forecasting & Regime Transfer MLOps Platform
+# ETS — Hệ Thống Theo Dõi Thí Nghiệm AI Cho Dự Báo Tài Chính
 
-Một nền tảng MLOps chuyên dụng để dự báo tài chính (Finance Forecasting) và phân tích sự chuyển dịch trạng thái thị trường (Regime Transfer), được xây dựng với kiến trúc hiện đại, tập trung vào việc quản lý vòng đời Machine Learning: từ xử lý dữ liệu, huấn luyện mô hình, kiểm thử Walk-Forward đến phân tích và so sánh kết quả.
+> Một nền tảng MLOps hiện đại dành cho dự báo tài chính, phân tích regime transfer và theo dõi thí nghiệm AI.
 
-![ETS Dashboard Demo](https://via.placeholder.com/1200x600.png?text=ETS+MLOps+Dashboard+Demo)
+ETS (Experiment Tracking System) là một nền tảng web hỗ trợ quản lý và theo dõi quá trình huấn luyện mô hình AI trong lĩnh vực tài chính định lượng. Hệ thống cung cấp pipeline hoàn chỉnh cho việc quản lý dữ liệu, huấn luyện mô hình học máy, đánh giá bằng walk-forward validation, theo dõi kết quả thí nghiệm và trực quan hóa hiệu suất mô hình thông qua dashboard tương tác.
 
-## ✨ Tính năng nổi bật
+---
 
-- **Quản lý Dữ liệu (Datasets)**: Tải lên, lưu trữ và theo dõi các tập dữ liệu tài chính (vd: VN30). Tự động trích xuất đặc trưng (Feature Engineering) và cấu trúc dữ liệu.
-- **Quản lý Thử nghiệm (Experiments)**: Tạo và theo dõi các thử nghiệm, liên kết với từng bộ dữ liệu cụ thể.
-- **Mô hình hóa Đa dạng (Modeling)**:
-  - **LightGBM**: Base Model (tiền huấn luyện), Transfer Model (tinh chỉnh theo Regime) và Ensemble Model (kết hợp).
-  - **Baselines**: Hỗ trợ các baseline chuẩn như XGBoost, Static LGB.
-  - **Deep Learning**: Tích hợp các mô hình dựa trên chuỗi thời gian như LSTM và Transformer (yêu cầu PyTorch).
-- **Kiểm thử Walk-Forward**: Thực hiện backtest với cơ chế cửa sổ trượt (Expanding Window) tránh data leakage, cho phép đánh giá hiệu suất thực tế trên chuỗi thời gian.
-- **Dynamic Hyperparameter Tuning**: Cấu hình và tinh chỉnh trực tiếp các siêu tham số (như `learning_rate`, `max_depth`) từ giao diện người dùng trước mỗi lần chạy (Run).
-- **So sánh & Phân tích (Run Comparison)**: Trực quan hóa kết quả bằng Plotly. Hỗ trợ biểu đồ Cột (Bar Chart) cho các chỉ số tốt nhất và biểu đồ Phân tán (Scatter Plot) để phân tích tương quan giữa siêu tham số và độ chính xác.
+# ✨ Tính Năng Chính
 
-## 🛠 Công nghệ sử dụng
+## 📊 Quản Lý Dữ Liệu
+- Upload và quản lý dataset tài chính (CSV)
+- Tự động tiền xử lý và trích xuất đặc trưng
+- Lưu trữ dữ liệu có cấu trúc để đảm bảo khả năng tái lập thí nghiệm
 
-- **Backend**: Python 3.9+, FastAPI, SQLAlchemy (SQLite), Pydantic. Xử lý hàng đợi bất đồng bộ với BackgroundTasks.
-- **Machine Learning**: LightGBM, XGBoost, Scikit-learn, PyTorch, Pandas, Numpy.
-- **Frontend**: React.js (CDN), CSS thuần (Modern UI/UX), Plotly.js để vẽ biểu đồ.
+## 🧪 Theo Dõi Thí Nghiệm
+- Tạo các thí nghiệm độc lập theo từng dataset
+- Theo dõi hyperparameters, metrics và kết quả mô hình
+- So sánh nhiều lần chạy trực quan
 
-## 🚀 Hướng dẫn cài đặt và chạy ứng dụng
+## 🤖 Pipeline Machine Learning
 
-### 1. Yêu cầu hệ thống
-- Python 3.9 hoặc mới hơn.
-- Trình duyệt web hiện đại (Chrome, Edge, Firefox).
+Hỗ trợ nhiều phương pháp dự báo:
 
-### 2. Cài đặt Backend
+### Gradient Boosting Models
+- LightGBM
+- XGBoost
+- Static LGB baseline
+- Regime-aware transfer learning
+- Ensemble forecasting pipelines
 
-Clone repository về máy:
-```bash
-git clone https://github.com/your-username/ets-finance-mlops.git
-cd ets-finance-mlops
+### Deep Learning Models
+- LSTM
+- Transformer cho chuỗi thời gian
+- Tích hợp PyTorch
+
+## 🔄 Walk-Forward Validation
+
+Triển khai cơ chế backtesting theo expanding-window:
+- Giảm data leakage
+- Mô phỏng điều kiện dự báo thực tế
+- Đánh giá độ ổn định của mô hình theo thời gian
+
+## ⚙ Tùy Chỉnh Hyperparameter
+
+Cho phép thay đổi trực tiếp từ giao diện:
+- learning_rate
+- max_depth
+- boosting parameters
+- custom experiment configs
+
+## 📈 Trực Quan Hóa & Phân Tích
+
+Dashboard Plotly tương tác:
+- Biểu đồ so sánh kết quả
+- Scatter analysis
+- Xếp hạng metrics
+- Phân tích tương quan giữa hyperparameter và hiệu suất
+
+---
+
+# 🖥 Demo Giao Diện
+
+## Dashboard
+![dashboard](docs/dashboard.png)
+
+---
+
+## So Sánh Runs
+![compare](docs/compare.png)
+
+---
+
+## Quản Lý Experiment
+![experiments](docs/experiments.png)
+
+---
+
+# 🏗 Kiến Trúc Hệ Thống
+
+```text
+Frontend (React + Plotly)
+        │
+        ▼
+ FastAPI REST API
+        │
+        ▼
+ Experiment Tracking Layer
+        │
+ ┌──────┴────────┐
+ ▼               ▼
+ML Pipelines   SQLite Database
+ ▼
+Walk-Forward Engine
+ ▼
+Model Evaluation & Outputs
 ```
 
-Tạo môi trường ảo và cài đặt thư viện:
+---
+
+# 🧰 Công Nghệ Sử Dụng
+
+## Backend
+- Python 3.9+
+- FastAPI
+- SQLAlchemy
+- Pydantic
+- SQLite
+
+## Machine Learning
+- LightGBM
+- XGBoost
+- Scikit-learn
+- PyTorch
+- Pandas
+- NumPy
+
+## Frontend
+- React.js
+- Plotly.js
+- Vanilla CSS
+
+## Hạ Tầng
+- Docker
+- Docker Compose
+
+---
+
+# 📂 Cấu Trúc Dự Án
+
+```text
+project-proposal/
+│
+├── backend/
+│   ├── db/
+│   ├── ets/
+│   ├── plugins/
+│   └── vn_regime_transfer/
+│
+├── frontend/
+│
+├── docs/
+│   ├── dashboard.png
+│   ├── compare.png
+│   └── experiments.png
+│
+├── outputs/
+├── reports/
+│
+├── Dockerfile
+├── docker-compose.yml
+├── pyproject.toml
+└── README.md
+```
+
+---
+
+# 🚀 Hướng Dẫn Cài Đặt
+
+## 1. Clone Repository
+
+```bash
+git clone https://github.com/JaydenB127/project-proposal.git
+cd project-proposal
+```
+
+---
+
+## 2. Tạo Virtual Environment
+
+### Windows
+
 ```bash
 python -m venv .venv
-# Kích hoạt môi trường (Windows)
 .venv\Scripts\activate
-# Hoặc trên Linux/macOS
-# source .venv/bin/activate
+```
 
+### Linux/macOS
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+```
+
+---
+
+## 3. Cài Đặt Thư Viện
+
+```bash
 pip install -r requirements.txt
 ```
 
-*(Tuỳ chọn) Nếu bạn muốn chạy các mô hình Deep Learning (LSTM, Transformer), hãy cài đặt thêm PyTorch tương thích với hệ thống của bạn.*
+Tùy chọn (cho Deep Learning):
 
-### 3. Khởi động Server
-
-Chạy lệnh sau từ thư mục gốc của dự án:
 ```bash
-# Thiết lập PYTHONPATH và khởi động FastAPI server
+pip install torch
+```
+
+---
+
+## 4. Chạy Backend Server
+
+### Windows PowerShell
+
+```powershell
 $env:PYTHONPATH="backend"
 python -m ets.api.main
 ```
 
-Server sẽ khởi chạy tại: `http://localhost:8000`
+Server sẽ chạy tại:
 
-### 4. Truy cập Giao diện Web
-
-Mở trình duyệt và truy cập vào địa chỉ: [http://localhost:8000/](http://localhost:8000/)
-
-- **Đăng nhập / Đăng ký**: Tạo một tài khoản cục bộ để bắt đầu.
-- **Datasets**: Vào tab Datasets để tải lên bộ dữ liệu CSV (ví dụ: dữ liệu giá chứng khoán VN30).
-- **Experiments**: Tạo Experiment mới, gán Dataset vừa tải lên.
-- **Runs**: Trong Experiment, bạn có thể chỉnh sửa `LR` (Learning Rate) và `Depth` (Max Depth), sau đó nhấn **Trigger Run** để bắt đầu quá trình huấn luyện và đánh giá Walk-Forward.
-
-## 📁 Cấu trúc thư mục
-
-```
-📦 qlib-main
- ┣ 📂 backend
- ┃ ┣ 📂 db                 # Định nghĩa Models và Database Session (SQLAlchemy)
- ┃ ┣ 📂 ets                # Core API, Event Bus, Tracking Service, REST Routes
- ┃ ┣ 📂 plugins            # Các plugin thực thi Pipeline (FinanceForecastingPipeline)
- ┃ ┗ 📂 vn_regime_transfer # Logic Machine Learning, Walk-forward validation, Models
- ┣ 📂 frontend
- ┃ ┗ 📜 index.html         # Giao diện Web SPA React.js
- ┣ 📜 ets.db               # Cơ sở dữ liệu SQLite (tự động tạo)
- ┗ 📜 README.md
+```text
+http://localhost:8000
 ```
 
-## 🤝 Đóng góp
+---
 
-Mọi đóng góp (Issues, Pull Requests) đều được chào đón! Vui lòng mở một Issue để thảo luận về tính năng bạn muốn thêm vào hoặc lỗi bạn gặp phải trước khi tạo Pull Request.
+## 5. Mở Giao Diện Web
 
-## 📄 Giấy phép (License)
+Truy cập:
 
-Dự án này được phân phối dưới giấy phép [MIT License](LICENSE).
+```text
+http://localhost:8000
+```
+
+Bạn có thể:
+- Upload dataset
+- Tạo experiment
+- Chạy pipeline
+- So sánh kết quả dự báo
+- Phân tích metrics trực quan
+
+---
+
+# 📊 Quy Trình Hoạt Động
+
+```text
+Upload Dataset
+      ↓
+Tạo Experiment
+      ↓
+Cấu Hình Hyperparameters
+      ↓
+Chạy Walk-Forward Validation
+      ↓
+Theo Dõi Metrics & Outputs
+      ↓
+Trực Quan Hóa Và So Sánh
+```
+
+---
+
+# 🎯 Mục Tiêu Dự Án
+
+Dự án hướng đến:
+- Xây dựng nền tảng lightweight thay thế MLflow cho tài chính định lượng
+- Hỗ trợ nghiên cứu AI có khả năng tái lập
+- Quản lý vòng đời thí nghiệm machine learning
+- Hạn chế data leakage trong time-series forecasting
+- Cung cấp giao diện trực quan cho MLOps experimentation
+
+---
+
+# 🔬 Hướng Nghiên Cứu
+
+Nền tảng được thiết kế cho:
+- Dự báo chuỗi thời gian tài chính
+- Regime transfer learning
+- Quantitative research
+- Walk-forward evaluation
+- MLOps experimentation pipelines
+
+---
+
+# 👥 Nhóm Phát Triển
+
+| Thành viên | MSSV | Vai trò |
+|------------|------|----------|
+| Bùi Thành Đạt | 23724811 | Trưởng nhóm |
+| La Thiên Bảo | 23723801 | Thành viên |
+| Lê Ngọc Huy | 23727381 | Thành viên |
+| Bùi Huy Bảo | 23720161 | Thành viên |
+
+---
+
+# 📌 Phân Công Nhiệm Vụ
+
+| Thành viên | Nhiệm vụ |
+|------------|-----------|
+| 23724811 – Bùi Thành Đạt | Backend: FastAPI routes, BackgroundTasks, WebSocket streaming |
+| 23727381 – Lê Ngọc Huy | ML Pipeline: Data Ingestion, Feature Engineering, Regime Detection (HMM) |
+| 23720161 – Bùi Huy Bảo | ML Pipeline: Walk-Forward Validation, Backtest, Statistical Tests, Reporting |
+| 23723801 – La Thiên Bảo | Frontend: React SPA, UI/UX, Plotly charts, Dataset management |
+
+---
+
+# 📌 Hướng Phát Triển Tương Lai
+
+- Hỗ trợ PostgreSQL
+- Xác thực người dùng và phân quyền
+- Huấn luyện bằng GPU
+- Distributed experiment execution
+- Tích hợp MLflow/W&B
+- Streaming metrics realtime
+- Model registry system
+- Hỗ trợ cloud deployment
+
+---
+
+# 🧪 Kiểm Thử
+
+Chạy end-to-end tests:
+
+```bash
+python test_e2e.py
+```
+
+hoặc
+
+```bash
+python test_deletion_e2e.py
+```
+
+---
+
+# 🤝 Đóng Góp
+
+Mọi đóng góp đều được chào đón.
+
+Bạn có thể:
+- cải thiện kiến trúc hệ thống
+- thêm forecasting models
+- tối ưu pipeline
+- nâng cấp visualization
+
+hãy tạo issue hoặc pull request.
+
+---
+
+# 📄 License
+
+Dự án được phát hành theo giấy phép MIT License.
+
+---
+
+# 👨‍💻 Tác Giả
+
+Phát triển như một nền tảng AI/MLOps phục vụ nghiên cứu dự báo tài chính và regime transfer modeling.
