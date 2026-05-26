@@ -7,7 +7,7 @@ ETS (Experiment Tracking System) là một nền tảng web hỗ trợ quản l�
 
 ##  Tổng quan dự án
 
-**Experiment Tracking System là một ứng dụng web cho phép người dùng tạo, lưu trữ và so sánh các thí nghiệm machine learning một cách có hệ thống. Thay vì ghi chép kết quả bằng Excel hay ghi chú rời rạc, người dùng có thể log hyperparameters và metrics của từng lần chạy, rồi xem lại qua dashboard với biểu đồ trực quan.
+Experiment Tracking System là một ứng dụng web cho phép người dùng tạo, lưu trữ và so sánh các thí nghiệm machine learning một cách có hệ thống. Thay vì ghi chép kết quả bằng Excel hay ghi chú rời rạc, người dùng có thể log hyperparameters và metrics của từng lần chạy, rồi xem lại qua dashboard với biểu đồ trực quan.
 Lý do chọn đề tài: Trong quá trình học các môn Machine Learning, nhóm nhận thấy khi thử nghiệm nhiều bộ tham số khác nhau (learning rate, batch size, số epochs...), việc nhớ lại "lần chạy nào cho kết quả tốt nhất" rất khó nếu không ghi chép cẩn thận. Excel thì lộn xộn, ghi chú tay thì dễ mất — đây là vấn đề thực tế nhóm đã gặp.
 Điểm khác so với phần mềm hiện có:
 Các công cụ chuyên nghiệp như MLflow hay Weights & Biases rất mạnh nhưng đòi hỏi cấu hình phức tạp, cần hiểu về Docker, server, và thường tích hợp trực tiếp vào code Python. Dự án này hướng đến đối tượng là sinh viên hoặc người mới học ML với cách tiếp cận đơn giản hơn: người dùng tự nhập kết quả qua giao diện web, không cần cài đặt thêm bất cứ thứ gì, chạy được ngay trên localhost.
